@@ -22,13 +22,34 @@ public class SwapNodesInPairs {
 		if(head == null || head.next == null)
             return head;
         
-        // Recursive approach - call the method recursively every 2 nodes
-        // Modify the sequence of first two nodes and link the output of the result
-        ListNode swappedSeq = swapNodesInPairs(head.next.next);
-        ListNode res = head.next;
-        head.next.next = head;
-        head.next = swappedSeq;
-        return res;
+//        // Recursive approach - call the method recursively every 2 nodes
+//        // Modify the sequence of first two nodes and link the output of the result
+//        ListNode swappedSeq = swapNodesInPairs(head.next.next);
+//        ListNode res = head.next;
+//        head.next.next = head;
+//        head.next = swappedSeq;
+//        return res;
+		
+		// Iterative approach - Useful when the list is very long
+        ListNode first = head;
+        ListNode mid = head.next;
+        ListNode sec = mid;
+        head = mid;
+        
+        while(sec != null) {
+            sec = sec.next;
+            mid.next = first;
+            if(sec == null || sec.next == null)
+                first.next = sec;
+            else
+                first.next = sec.next;
+            first = sec;
+            if(first == null)
+                return head;
+            mid = first.next;
+            sec = mid;
+        }
+        return head;
 	}
 
 }
