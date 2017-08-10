@@ -17,6 +17,8 @@ package LeetCodeMediumQuestions;
 public class RemoveDuplicatesFromSortedList2 {
 
 	public ListNode removeDuplicatesFromSortedList2(ListNode head) {
+		// Approach - Maintain prev pointer inorder to remove the curr node if its duplicate
+        // Maintain boolean del to store if curr is repeated or not
 		ListNode dummyHead = new ListNode(0);
 		dummyHead.next = head;
 		ListNode prev = dummyHead;
@@ -26,6 +28,8 @@ public class RemoveDuplicatesFromSortedList2 {
 
 		while (curr != null) {
 			nextNode = nextNode.next;
+			// Delete all adjacent duplicates
+            // del = true iff curr.val is repeated in the list
 			while (nextNode != null && curr.val == nextNode.val) {
 				curr.next = nextNode.next;
 				nextNode = nextNode.next;
