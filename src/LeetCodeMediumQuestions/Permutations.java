@@ -20,30 +20,28 @@ public class Permutations {
 
 	public List<List<Integer>> getPermutations(int[] nums) {
 		List<List<Integer>> res = new ArrayList<>();
-		List<Integer> numsList = new ArrayList<>();
-		for (int num : nums)
-			numsList.add(num);
 
-		List<Integer> tempList = new ArrayList<>();
-
-		res = permuteHelper(numsList, tempList, res);
+		res = permuteHelper(nums, new ArrayList<Integer>(), res);
 		return res;
 	}
 
-	private List<List<Integer>> permuteHelper(List<Integer> numList, List<Integer> perm, List<List<Integer>> res) {
-		if (numList.size() == 0) {
+	private List<List<Integer>> permuteHelper(int[] nums, List<Integer> perm, List<List<Integer>> res) {
+		if (perm.size() == nums.length) {
 			res.add(new ArrayList<>(perm)); // ing a separate copy is required as an arraylist is an object and its
 											// address is passed when adding the list
 			return res; // This return res goes to previous permuteHelper but not to getPermutations
 						// method
 		}
 
-		for (int i = 0; i < numList.size(); i++) {
-			int currNum = numList.remove(i);
-			perm.add(currNum);
-			res = permuteHelper(numList, perm, res);
-			perm.remove(perm.size() - 1);
-			numList.add(i, currNum);
+		// Assuming all elements in the given list are unique, check if the perm list
+		// already contains the ith element in the array if contains skip calling
+		// recursion on that otherwise select that and iterate over it
+		for (int i = 0; i < nums.length; i++) {
+			if (!perm.contains(nums[i])) {
+				perm.add(nums[i]);
+				res = permuteHelper(nums, perm, res);
+				perm.remove(perm.size() - 1);
+			}
 		}
 		return res;
 	}
