@@ -35,6 +35,9 @@ public class BinaryNumWithAlternatingBits {
                 n = (n >> 2);
         }
         return true;
+        
+//		// Alternate solution
+//		return Integer.toBinaryString(n).matches("1(01)*0?");
 	}
 
 }
