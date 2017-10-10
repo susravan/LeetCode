@@ -1,6 +1,8 @@
 package LeetCodeEasyQuestions;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * @author sravan
@@ -18,24 +20,16 @@ The Next Greater Number of a number x in nums1 is the first greater number to it
 public class NextGreaterElement1 {
 
 	public int[] nextGreaterElement1(int[] findNums, int[] nums) {
-		int[] result = new int[findNums.length];
-        Arrays.fill(result, -1);
-        
-        for(int k=0; k<findNums.length; k++) {
-            for(int i=0; i<nums.length; i++) {
-                if(findNums[k] == nums[i]) {
-                    int j = i + 1;
-                    while(j < nums.length) {
-                        if(nums[j] > nums[i]) {
-                            result[k] = nums[j];
-                            break;
-                        }
-                        j++;
-                    }
-                }
-            }
-        }
-        return result;
+		Map<Integer, Integer> map = new HashMap<>(); // map from x to next greater element of x
+        Stack<Integer> stack = new Stack<>();
+        for (int num : nums) {
+            while (!stack.isEmpty() && stack.peek() < num)
+                map.put(stack.pop(), num);
+            stack.push(num);
+        }   
+        for (int i = 0; i < findNums.length; i++)
+            findNums[i] = map.getOrDefault(findNums[i], -1);
+        return findNums;
 	}
 
 }
