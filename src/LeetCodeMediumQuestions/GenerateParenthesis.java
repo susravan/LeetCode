@@ -24,7 +24,6 @@ public class GenerateParenthesis {
 
 	public List<String> generateParenthesis(int n) {
 		List<String> res = new ArrayList<>();
-
 		generateParenthesis(n, n, "", res);
 		return res;
 	}
@@ -34,12 +33,11 @@ public class GenerateParenthesis {
 			res.add(curr);
 			return;
 		}
-
+		
 		if (openCount > 0)
 			generateParenthesis(openCount - 1, closeCount, curr + "(", res);
+		// closeCount should be more than openCount to add one more closed bracket
 		if (closeCount > openCount)
 			generateParenthesis(openCount, closeCount - 1, curr + ")", res);
-
 	}
-
 }
