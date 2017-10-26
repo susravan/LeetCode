@@ -29,7 +29,7 @@ return its level order traversal as:
  */
 
  
-public class BinaryTreeOrderTraversal {
+public class BinaryTreeLevelOrderTraversal {
 
 	public List<List<Integer>> binaryTreeOrderTraversal(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<>();

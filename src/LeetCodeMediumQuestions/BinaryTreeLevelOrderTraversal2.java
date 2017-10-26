@@ -18,7 +18,7 @@ import java.util.List;
  * 
  */
 
-public class BinaryTreeOrderTraversal2 {
+public class BinaryTreeLevelOrderTraversal2 {
 
 	public List<List<Integer>> BinaryTreeOrderTraversal2(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<>();
