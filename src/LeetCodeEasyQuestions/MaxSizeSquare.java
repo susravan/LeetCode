@@ -6,8 +6,9 @@ package LeetCodeEasyQuestions;
  */
 public class MaxSizeSquare {
 	
+	// Approach: Use DP to get the largest size of the matrix until each point
 	public int getMaxSquareMatrix(int[][] matrix) {
-		// Approach: Use DP to get the largest size of the matrix until each point
+		
 		int len = matrix.length, wid = matrix[0].length;
 		// DP matrix with 1 higher than the number of rows and columns
 		int[][] memo = new int[len+1][wid+1];
