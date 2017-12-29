@@ -24,7 +24,7 @@ public class GetAllPalindromicSubStrings {
 
 	public int getAllPalindromicSubStrings(String str) {
 		// Approach: Similar to LongestPalindromicSubstring problem
-		// For each of the 2*n - 1 centers, expand the string around the corner
+		// For each of the 2*n - 1 centers, expand the string around the center
 		int palinCount = 0;
 		
 		for(int i=0; i < str.length(); i++) {
@@ -37,11 +37,11 @@ public class GetAllPalindromicSubStrings {
 	private int expandAroundCenter(String str, int L, int R) {
 		int count = 0;
 		while(L >= 0 && R < str.length() && str.charAt(L) == str.charAt(R)) {
+			// Every time there is a same character in the string, we increment count
 			count++;
 			L--;
 			R++;
 		}
 		return count;
 	}
-
 }
