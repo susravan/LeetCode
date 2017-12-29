@@ -36,7 +36,7 @@ public class GenerateParenthesis {
 		
 		if (openCount > 0)
 			generateParenthesis(openCount - 1, closeCount, curr + "(", res);
-		// closeCount should be more than openCount to add one more closed bracket
+		// This condition avoids putting close brackets before open brackets thus maintaining validity
 		if (closeCount > openCount)
 			generateParenthesis(openCount, closeCount - 1, curr + ")", res);
 	}
