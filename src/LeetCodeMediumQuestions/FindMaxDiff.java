@@ -10,34 +10,27 @@ package LeetCodeMediumQuestions;
 // Asked in Paypal Phone interview
 public class FindMaxDiff {
 	public int getmaxDiff(int[] arr) {
-		if(arr.length < 2)
-			return -1;
-		
-		int maxDiff = 0;
-		int len = arr.length;
-		int min = 0, max = 1;
-		
-		// Traverse the decresing part of the array and get to the min element
-		while(min < len && max < len && arr[min] > arr[max]) {
-			min++;
-			max++;
-		}
-		// Update maxDiff with difference if min element is reached otherwise 0
-		maxDiff = min < len && max < len ? arr[max] - arr[min] : 0;
+		if (arr == null || arr.length == 0)
+			return 0;
 
-		// Traverse from max term and update min and max values as seen, calculate diff
-		int index = max+1;
-		while(index < len) {
-			if(arr[index] < arr[min]) {
-				min = index;
-				max = min;
-			} else if(arr[index] > arr[max]) {
-				max = index;
-				maxDiff = Math.max(maxDiff, arr[max]-arr[min]);
+		// Approach: Store min value as we traverse the array. Maintain 2 pointers left
+		// and right to see if the values are increasing or decreasing - this gives us
+		// wheather to change the min value or not. Note that only if the right > left,
+		// we change the min value. Otherwise if the last element is the min value, it
+		// wouldn't effect our result.
+		int left = 0, right = 1, minIndex = 0;
+		int max_diff = Integer.MIN_VALUE;
+
+		while (right < arr.length) {
+			if (arr[left] < arr[right]) {
+				if (arr[minIndex] > arr[left]) {
+					minIndex = left;
+				}
+				max_diff = Math.max(max_diff, arr[right] - arr[minIndex]);
 			}
-			index++;
+			left++;
+			right++;
 		}
-		
-		return maxDiff;
+		return max_diff;
 	}
 }
