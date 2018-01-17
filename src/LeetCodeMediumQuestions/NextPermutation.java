@@ -1,9 +1,7 @@
 package LeetCodeMediumQuestions;
 
-import java.util.Arrays;
-
 /**
- * @author sravan created on Aug 8, 2017
+ * @author Sravan created on Aug 8, 2017
  *
  */
 
@@ -24,41 +22,44 @@ import java.util.Arrays;
 
 public class NextPermutation {
 
-	public void getNextPermutation(int[] nums) {
-		if (nums.length < 2)
-			return;
-
-		int index = nums.length - 1;
-		while (index > 0) {
-			if (nums[index] > nums[index - 1]) {
+	public void nextPermutation(int[] nums) {
+		// Find the least index from right that is lesser than it's right value
+		int i = nums.length - 1;
+		for (i = nums.length - 1; i >= 0; i--) {
+			if (i == 0 || nums[i - 1] < nums[i])
 				break;
-			}
-			index--;
 		}
 
-		// Array is in descending order
-		if (index == 0) {
-			Arrays.sort(nums);
+		// Edge case - if array is in descending order
+		if (i == 0) {
+			reverse(nums, 0);
 			return;
 		}
 
-		// Find immediate char greater than chrNums[index - 1]
-		int rep = nums[index - 1];
-		int minIndex = index;
-
-		for (int i = index; i < nums.length; i++) {
-			if (nums[i] > rep && nums[minIndex] > nums[i]) {
-				minIndex = i;
-			}
+		// Swap next greater element to the changeNum and reverse the RHS part
+		int changeNum = nums[i - 1];
+		int j = nums.length - 1;
+		while (j >= i) {
+			if (nums[j] > changeNum)
+				break;
+			j--;
 		}
+		// swap i-1 with jth num
+		int temp = nums[i - 1];
+		nums[i - 1] = nums[j];
+		nums[j] = temp;
+		reverse(nums, i);
+	}
 
-		// Swap both the characters
-		int replace = nums[index - 1];
-		nums[index - 1] = nums[minIndex];
-		nums[minIndex] = replace;
-
-		// Sorting all other characters
-		Arrays.sort(nums, index, nums.length);
+	private void reverse(int[] nums, int start) {
+		int end = nums.length - 1;
+		while (start < end) {
+			int temp = nums[start];
+			nums[start] = nums[end];
+			nums[end] = temp;
+			start++;
+			end--;
+		}
 	}
 
 }
