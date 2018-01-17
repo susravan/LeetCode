@@ -1,5 +1,16 @@
 package LeetCodeMediumQuestions;
 
+/**
+ * @author Sravan 
+ * Divide two integers without using multiplication, division and
+ *         mod operator.
+ * 
+ *         If it is overflow, return MAX_INT.
+ *
+ * 
+ */
+
+// Inspired from 
 public class DivideTwoIntegers {
 	public int divide(int dividend, int divisor) {
 		int sign = 1;
