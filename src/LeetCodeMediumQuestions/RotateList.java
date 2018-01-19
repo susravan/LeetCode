@@ -1,59 +1,56 @@
 package LeetCodeMediumQuestions;
 
 /**
- * @author sravan
- * created on Aug 9, 2017
+ * @author sravan created on Aug 9, 2017
  *
  */
 
-/* Given a list, rotate the list to the right by k places, where k is non-negative.
-
-For example:
-Given 1->2->3->4->5->NULL and k = 2,
-return 4->5->1->2->3->NULL
+/*
+ * Given a list, rotate the list to the right by k places, where k is
+ * non-negative.
+ * 
+ * For example: Given 1->2->3->4->5->NULL and k = 2, return 4->5->1->2->3->NULL
  *
  */
 
+// Inspired from https://leetcode.com/submissions/detail/136891689/
 public class RotateList {
-
-	public ListNode rotateList(ListNode head, int k) {
-		if (head == null || head.next == null)
+	public ListNode rotateRight(ListNode head, int k) {
+		if (head == null || k == 0)
 			return head;
 
-		// Get length of the list
-		ListNode curr = head;
-		int len = 0;
-		while (curr != null) {
-			curr = curr.next;
-			len++;
-		}
-		// If k > len, make it less than length
-		k = k % len;
-
-		if (k == 0)
-			return head;
-
-		ListNode prev = new ListNode(0);
-		prev.next = head;
-		ListNode left = head;
-		ListNode right = head;
-
-		// Getting the range of the shift
-		while (k > 1) {
-			right = right.next;
-			k--;
-		}
-		// Moving the range rightwards
-		while (right.next != null) {
-			prev = prev.next;
-			left = left.next;
-			right = right.next;
+		ListNode first = head, second = head;
+		int i = 0;
+		while (i < k) {
+			if (first.next != null) {
+				first = first.next;
+				i++;
+			} else
+				break;
 		}
 
-		prev.next = null;
-		right.next = head;
-		head = left;
+		// Check if k nodes are reached or "first" node is null
+		if (i < k) {
+			i++;
+			// Checking if k == length of the list, if so return head
+			if (i == k)
+				return head;
+			// else get new k and use it to shift the pointers
+			int shift = k % i;
+			first = head;
+			for (int j = 0; j < shift; j++)
+				first = first.next;
+		}
+
+		while (first.next != null) {
+			first = first.next;
+			second = second.next;
+		}
+
+		first.next = head;
+		head = second.next;
+		second.next = null;
+
 		return head;
 	}
-
 }
