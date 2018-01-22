@@ -2,7 +2,6 @@ package LeetCodeMediumQuestions;
 
 import java.util.HashMap;
 import java.util.Map;
-import LeetCodeMediumQuestions.TreeNode;
 
 /**
  * @author Sravan
