@@ -16,8 +16,8 @@ package LeetCodeDifficultQuestions;
 
 // Inspired from https://leetcode.com/problems/edit-distance/discuss/
 public class EditDistance {
-	// Approach: DP with O(N^2) space, O(max(M,N) time
-	// Can be done in O(M/N) space, will update the solution in future
+	// Approach: DP with O(N^2) space, O(M*N) time
+	// Can be done in O(min(M, N)) space, will update the solution in future
 	public int minDistance(String word1, String word2) {
 		int m = word1.length(), n = word2.length();
 		int[][] memo = new int[m + 1][n + 1];
