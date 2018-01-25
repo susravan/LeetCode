@@ -21,22 +21,31 @@ Given the below binary tree,
 Return 6.
  */
 
-// Inspired from https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/
+// Inspired from
+// https://leetcode.com/problems/binary-tree-maximum-path-sum/discuss/
 public class BTMaxPathSum {
-    // Recursive method
+	// Recursive method
+	// Global variable to have access of this over all recursions
 	int maxSum;
+
 	public int maxPathSum(TreeNode root) {
 		maxSum = Integer.MIN_VALUE;
 		maxPathSumHelper(root);
 		return maxSum;
 	}
-	
+
 	private int maxPathSumHelper(TreeNode root) {
-		if(root == null)
+		if (root == null)
 			return 0;
+
+		// Get max left and right sums
 		int left = maxPathSumHelper(root.left);
 		int right = maxPathSumHelper(root.right);
+		// Checks paths that not necessarily start from root
+		// This is the only extra step in case of looking for all paths not necessarily
+		// starting from root
 		maxSum = Math.max(maxSum, left + right + root.val);
+		// Return the max root to leaf path sum
 		return Math.max(left, right) + root.val;
 	}
 }
