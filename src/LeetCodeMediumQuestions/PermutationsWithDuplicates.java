@@ -20,10 +20,10 @@ import java.util.List;
 
 // Inspired from https://leetcode.com/problems/permutations/discuss/
 public class PermutationsWithDuplicates {
-
 	public List<List<Integer>> getPermutationsWithDuplicates(int[] nums) {
 		List<List<Integer>> list = new ArrayList<>();
-		Arrays.sort(nums);
+		Arrays.sort(nums); // Important for the condition that is used to avoid duplicates in backtrack
+							// method
 		backtrack(list, new ArrayList<>(), nums, new boolean[nums.length]);
 		return list;
 	}
@@ -33,6 +33,7 @@ public class PermutationsWithDuplicates {
 			list.add(new ArrayList<>(tempList));
 		} else {
 			for (int i = 0; i < nums.length; i++) {
+				// If the array is unsorted, we cannot use this condition
 				if (used[i] || i > 0 && nums[i] == nums[i - 1] && !used[i - 1])
 					continue;
 				used[i] = true;
