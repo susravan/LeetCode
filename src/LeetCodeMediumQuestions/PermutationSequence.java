@@ -23,33 +23,25 @@ import java.util.List;
 
 // Inspired from https://leetcode.com/problems/permutation-sequence/discuss/
 public class PermutationSequence {
-
-	public String getPermutationSequence(int n, int k) {
-		// Construct numbers list
+	public String getPermutation(int n, int k) {
 		List<Integer> numList = new ArrayList<>();
-		for (int i = 1; i <= n; i++) {
-			numList.add(i);
-		}
+		for (int i = 1; i <= n; i++)
+			numList.add(i); // Populate from i=1
 
-		// Construct factorial lookup
+		// factArr is important, devoid of which time complexity increases
 		int[] factArr = new int[n + 1];
 		factArr[0] = 1;
-
-		for (int i = 1; i < factArr.length; i++) {
+		for (int i = 1; i <= n; i++)
 			factArr[i] = factArr[i - 1] * i;
-		}
+		k--; // Important - Remember this
 
-		k--; // Zero based index
 		StringBuilder sb = new StringBuilder();
-
-		// Start dividing "k" from (n-1)! till 1! and update k each time
 		for (int i = 1; i <= n; i++) {
 			int index = k / factArr[n - i];
+			k -= index * factArr[n - i];
 			sb.append(numList.get(index));
 			numList.remove(index);
-			k -= index * factArr[n - i];
 		}
-
 		return sb.toString();
 	}
 }
