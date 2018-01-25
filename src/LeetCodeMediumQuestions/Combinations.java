@@ -34,7 +34,7 @@ public class Combinations {
 		else {
 			for (int i = start; i < n; i++) {
 				tempList.add(i + 1);
-				sumHelper(res, tempList, n, i + 1, k);
+				sumHelper(res, tempList, n, i + 1, k); // not k+1 as we can reuse the same element
 				tempList.remove(tempList.size() - 1);
 			}
 		}
