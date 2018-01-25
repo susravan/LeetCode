@@ -17,30 +17,27 @@ import java.util.List;
  */
 
 public class Permutations {
-
-	public List<List<Integer>> getcurrPermutations(int[] nums) {
+	public List<List<Integer>> permute(int[] nums) {
 		List<List<Integer>> res = new ArrayList<>();
-		currListuteHelper(nums, new ArrayList<Integer>(), res);
+		// Inserting a separate copy is required, as the arraylist is an object and
+		// its address is passed when adding the list
+		boolean[] visited = new boolean[nums.length];
+		permuteHelper(nums, new ArrayList<>(), res, visited);
 		return res;
 	}
 
-	private void currListuteHelper(int[] nums, List<Integer> currList, List<List<Integer>> res) {
+	private void permuteHelper(int[] nums, List<Integer> currList, List<List<Integer>> res, boolean[] visited) {
 		if (currList.size() == nums.length) {
-			res.add(new ArrayList<>(currList)); // Inserting a separate copy is required as an arraylist is an object and
-												// its address is passed when adding the list
+			res.add(new ArrayList<>(currList));
 		} else {
-			// Assuming all elements in the given list are unique, check if the currList list
-			// already contains the ith element in the array if contains skip calling
-			// recursion on that otherwise select that and iterate over it
+			// If a number is visited, it means that number is already present in currList
 			for (int i = 0; i < nums.length; i++) {
-				// This contains condition presence is mandatory. the start value condition that
-				// is used in subsets problem doesn't work well here, as that would take given
-				// fixed element as opposed to whichever element is not present.
-				// Ex: second entry in the result would be [1,3,3] as opposed to [1,3,2]
-				if (!currList.contains(nums[i])) {
+				if (!visited[i]) {
+					visited[i] = true;
 					currList.add(nums[i]);
-					currListuteHelper(nums, currList, res);
+					permuteHelper(nums, currList, res, visited);
 					currList.remove(currList.size() - 1);
+					visited[i] = false;
 				}
 			}
 		}
