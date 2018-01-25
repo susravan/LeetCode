@@ -12,7 +12,6 @@ package LeetCodeMediumQuestions;
  *
  */
 
-
 public class LongestCommonSubSequence {
 
 	public int getLongestCommonSubSequence(String a, String b) {
@@ -25,8 +24,7 @@ public class LongestCommonSubSequence {
 		for (int i = 0; i < aLen; i++) {
 			for (int j = 0; j < bLen; j++) {
 				// This extra layer of zeros allows us to use below expressions
-				// peacefully
-				// Otherwise many special cases needs to be considered
+				// peacefully Otherwise many special cases needs to be considered
 				if (i == 0 || j == 0)
 					memo[i][j] = 0;
 				else if (a.charAt(i) == b.charAt(j))
