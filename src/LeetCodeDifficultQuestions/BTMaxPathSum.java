@@ -38,9 +38,9 @@ public class BTMaxPathSum {
 		if (root == null)
 			return 0;
 
-		// Get max left and right sums
-		int left = maxPathSumHelper(root.left);
-		int right = maxPathSumHelper(root.right);
+		// Get max left and right sums. If negative, take 0
+		int left = Math.max(0, maxPathSumHelper(root.left));
+		int right = Math.max(0, maxPathSumHelper(root.right));
 		// Checks paths that not necessarily start from root
 		// This is the only extra step in case of looking for all paths not necessarily
 		// starting from root
