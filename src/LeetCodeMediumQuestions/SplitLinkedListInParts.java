@@ -37,6 +37,11 @@ k will be an integer in the range [1, 50].
  */
 
 public class SplitLinkedListInParts {
+	// Approach: The entire explanation can be consolidated into round-robin process
+	// For round-robin, get the number of nodes that needs to be distributed
+	// equally, then the no. of nodes that are remained. Distribute these remaining
+	// nodes one by one starting from first list in the array. Note this won't go
+	// greater than the length of the list array
 	public ListNode[] splitListToParts(ListNode root, int k) {
 		ListNode pointer = root;
 		int len = 0;
@@ -45,6 +50,8 @@ public class SplitLinkedListInParts {
 			pointer = pointer.next;
 			len++;
 		}
+		// diff represents the extra nodes will be remained after distributing the nodes
+		// equally
 		int diff = len % k, index = 0;
 
 		ListNode[] res = new ListNode[k];
