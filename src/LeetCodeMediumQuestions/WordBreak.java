@@ -1,10 +1,11 @@
 package LeetCodeMediumQuestions;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
- * @author sravan
- * 		   Given a non-empty string s and a dictionary wordDict
+ * @author sravan Given a non-empty string s and a dictionary wordDict
  *         containing a list of non-empty words, determine if s can be segmented
  *         into a space-separated sequence of one or more dictionary words. You
  *         may assume the dictionary does not contain duplicate words.
@@ -21,26 +22,24 @@ import java.util.Set;
 // Inspired from https://leetcode.com/problems/word-break/discuss/
 
 public class WordBreak {
-	public boolean wordBreak(String s, Set<String> dict) {
-		boolean[] f = new boolean[s.length() + 1];
-		f[0] = true;
+	public boolean wordBreak(String s, List<String> wordDict) {
+		// Approach: Use memo array to store the substring till current index is present
+		// in the dictionary
+		if (s.length() == 0)
+			return false;
 
-		/*
-		 * First DP for(int i = 1; i <= s.length(); i++){ for(String str: dict){
-		 * if(str.length() <= i){ if(f[i - str.length()]){
-		 * if(s.substring(i-str.length(), i).equals(str)){ f[i] = true; break; } } } } }
-		 */
+		// Make a dictionary set
+		Set<String> dict = new HashSet<>(wordDict);
+		boolean[] memo = new boolean[s.length() + 1];
+		memo[0] = true;
 
-		// Second DP
-		for (int i = 1; i <= s.length(); i++) {
-			for (int j = 0; j < i; j++) {
-				if (f[j] && dict.contains(s.substring(j, i))) {
-					f[i] = true;
-					break;
+		for (int end = 1; end <= s.length(); end++) {
+			for (int start = 0; start < end; start++) {
+				if (memo[start] && dict.contains(s.substring(start, end))) {
+					memo[end] = true;
 				}
 			}
 		}
-
-		return f[s.length()];
+		return memo[s.length()];
 	}
 }
