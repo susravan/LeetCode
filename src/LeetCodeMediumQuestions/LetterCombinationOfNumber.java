@@ -1,8 +1,6 @@
 package LeetCodeMediumQuestions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,45 +23,26 @@ import java.util.List;
  *
  */
 
-
 public class LetterCombinationOfNumber {
 	public List<String> getLetterCombinationOfNumber(String numStr) {
+		if (numStr.equals(""))
+			return new LinkedList<>();
 
-		HashMap<Character, char[]> map = new HashMap<>();
-		map.put('2', new char[] { 'a', 'b', 'c' });
-		map.put('3', new char[] { 'd', 'e', 'f' });
-		map.put('4', new char[] { 'g', 'h', 'i' });
-		map.put('5', new char[] { 'j', 'k', 'l' });
-		map.put('6', new char[] { 'm', 'n', 'o' });
-		map.put('7', new char[] { 'p', 'q', 'r', 's' });
-		map.put('8', new char[] { 't', 'u', 'v' });
-		map.put('9', new char[] { 'w', 'x', 'y', 'z' });
+		String[] mapping = new String[] { "0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+		LinkedList<String> list = new LinkedList<>();
+		list.add(""); // Important for first iteration
 
-		List<String> res = new ArrayList<>();
-		List<Character> charList = new ArrayList<>();
 		for (int i = 0; i < numStr.length(); i++) {
-			charList.add(numStr.charAt(i));
-		}
-
-		for (int i = 0; i < charList.size(); i++) {
-			char currChar = charList.get(i);
-
-			if (res.size() == 0) {
-				char[] toAppend = map.get(currChar);
-				for (int k = 0; k < toAppend.length; k++) {
-					res.add(toAppend[k] + "");
+			// If the length of first string in queue equals the index that we are looking
+			// for in numStr, we are looking at right string - Expand it by adding new
+			// characters to it.
+			while (list.peek().length() == i) {
+				String currStr = list.remove();
+				for (char ch : mapping[numStr.charAt(i) - '0'].toCharArray()) {
+					list.add(currStr + ch);
 				}
-			} else {
-				List<String> updatedList = new ArrayList<>();
-				for (int j = 0; j < res.size(); j++) {
-					char[] toAppend = map.get(currChar);
-					for (int k = 0; k < toAppend.length; k++) {
-						updatedList.add(res.get(j) + toAppend[k]);
-					}
-				}
-				res = updatedList;
 			}
 		}
-		return res;
+		return list;
 	}
 }
