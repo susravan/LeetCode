@@ -35,12 +35,13 @@ public class SpiralMatrix {
 			for (int r = r1; r <= r2; r++)
 				ans.add(matrix[r][c2]);
 			c2--;
-			
+
 			// This condition is put to avoid writing separate result for base cases like
 			// single row and single column
 			// Otherwise this logic works fine for square and rectangular matrices
 			// Given a single row/ column would result in duplicate items if this check is
-			// not made
+			// not made because both r1 and c2 are modified before this (and inside the
+			// loop)
 			if (r1 <= r2 && c1 <= c2) {
 				for (int c = c2; c >= c1; c--)
 					ans.add(matrix[r2][c]);
