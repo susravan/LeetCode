@@ -1,5 +1,8 @@
 package LeetCodeMediumQuestions;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * @author Sravan
  * Created on Jan 28, 2018
@@ -27,15 +30,41 @@ Answer: 3
 
  */
 
-
 public class NumberOfIslands {
-	public int numIslands(char[][] grid) {
+	// Recursive method - time complexity - O(4^MN)
+	public int numIslandsRecur(char[][] grid) {
 		int count = 0;
 
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
 				if (isIsland(grid, i, j))
 					count++;
+			}
+		}
+		return count;
+	}
+
+	// Iterative method (DFS) using deque, time complexity - O(M*N)
+	public int numIslandsIter(char[][] grid) {
+		int count = 0;
+		Deque<int[]> deq = new LinkedList<>();
+		int[][] dir = new int[][] { { -1, 0 }, { 1, 0 }, { 0, 1 }, { 0, -1 } };
+
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if (isIsland(grid, i, j)) {
+					deq.offer(new int[] { i, j });
+
+					while (!deq.isEmpty()) {
+						int[] curr = deq.poll();
+						grid[curr[0]][curr[1]] = '*';
+						for (int k = 0; k < dir.length; k++) {
+							if (isIsland(grid, curr[0] + dir[k][0], curr[1] + dir[k][1]))
+								deq.offer(new int[] { curr[0] + dir[k][0], curr[1] + dir[k][1] });
+						}
+					}
+					count++;
+				}
 			}
 		}
 		return count;
