@@ -23,16 +23,20 @@ public class UniqueBST {
 		if (n < 2)
 			return 1;
 
-		int[] dp = new int[n + 1];
-		dp[0] = 1;
-		dp[1] = 1;
-		dp[2] = 2;
+		int[] memo = new int[n + 1];
+		memo[0] = 1;
+		memo[1] = 1;
+		memo[2] = 2;
 
-		for (int num = 3; num <= n; num++) {
-			for (int div = 1; div <= num; div++) {
-				dp[num] += dp[div - 1] * dp[num - div];
+		for (int i = 3; i <= n; i++) {
+			// For n nodes, root position can be put from node1 to nodeN
+			for (int rootPos = 1; rootPos <= i; rootPos++) {
+				memo[i] += memo[rootPos - 1] * memo[i - rootPos]; // For each root position (rootPos), calculate the
+																	// possible trees to its left and right side based
+																	// on the no. of nodes on each side and add to
+																	// result
 			}
 		}
-		return dp[n];
+		return memo[n];
 	}
 }
