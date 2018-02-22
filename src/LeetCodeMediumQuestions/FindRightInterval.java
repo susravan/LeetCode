@@ -1,5 +1,6 @@
 package LeetCodeMediumQuestions;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,22 +37,26 @@ For [2,3], the interval [3,4] has minimum-"right" start point.
  */
 public class FindRightInterval {
 	public int[] findRightInterval(Interval[] intervals) {
-        TreeMap<Integer, Integer> intervalMap = new TreeMap<>();
-        
-        for(int i=0; i < intervals.length; i++) {
-            intervalMap.put(intervals[i].start, i);
-        }
-        
-        int[] res = new int[intervals.length];
-        
-        for(int i=0; i < intervals.length; i++) {
-            Map.Entry<Integer, Integer> entry = intervalMap.ceilingEntry(intervals[i].end);
-            res[i] = entry == null ? -1 : entry.getValue();
-        }
-        return res;
+//        // Using hashing
+//		TreeMap<Integer, Integer> intervalMap = new TreeMap<>();
+//        int[] res = new int[intervals.length];
+//        
+//        for(int i=0; i < intervals.length; i++) {
+//            intervalMap.put(intervals[i].start, i);
+//        }
+//        
+//        for(int i=0; i < intervals.length; i++) {
+//            Map.Entry<Integer, Integer> entry = intervalMap.ceilingEntry(intervals[i].end);
+//            res[i] = entry == null ? -1 : entry.getValue();
+//        }
+//        return res;
+		
+		// Using sorting
+		Collections.sort(intervals);
+		
     }
 
-	public class Interval {
+	public class Interval implements Comparable<Interval> {
 		int start;
 		int end;
 
@@ -63,6 +68,15 @@ public class FindRightInterval {
 		Interval(int s, int e) {
 			start = s;
 			end = e;
+		}
+
+		// Used for sorting approach
+		@Override
+		public int compareTo(Interval o) {
+			if(this.end < o.start)
+				return 1;
+			else
+				return -1;
 		}
 	}
 }
