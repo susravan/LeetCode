@@ -28,7 +28,7 @@ package LeetCodeMediumQuestions;
 
 // Inspired from https://leetcode.com/problems/sort-colors/discuss/
 public class SortColors {
-	public void sortColors(int[] nums) {
+	public int[] sortColors(int[] nums) {
 		// 1-pass algo. 2-pass would be taking counts of each and overwriting the array
 		// p0 - last zero index, p2 - first 2 index, index - moves from 0 to p2 included
 		int p0 = 0, p2 = nums.length - 1, index = 0;
@@ -38,13 +38,14 @@ public class SortColors {
 				nums[p0] = 0;
 				p0++;
 			}
-			if (nums[index] == 2) {
+			else if (nums[index] == 2) {
 				nums[index] = nums[p2];
 				nums[p2] = 2;
 				p2--;
-				index--;
 			}
-			index++;
+			else
+				index++;
 		}
+		return nums;
 	}
 }
