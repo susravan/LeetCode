@@ -4,8 +4,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import LeetCodeMediumQuestions.FindRightInterval.Interval;
-
 /**
  * @author Sravan
  * Given a collection of intervals, merge all overlapping
@@ -41,21 +39,6 @@ public class MergeIntervals {
 		@Override
 		public int compare(Interval first, Interval second) {
 			return first.start < second.start ? -1 : (first.start == second.start ? 0 : 1);
-		}
-	}
-
-	public class Interval {
-		int start;
-		int end;
-
-		Interval() {
-			start = 0;
-			end = 0;
-		}
-
-		Interval(int s, int e) {
-			start = s;
-			end = e;
 		}
 	}
 }
