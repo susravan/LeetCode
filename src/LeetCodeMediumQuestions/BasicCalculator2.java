@@ -17,7 +17,6 @@ import java.util.Stack;
  */
 
 // Inspired by https://leetcode.com/problems/basic-calculator-ii/discuss/
-
 public class BasicCalculator2 {
 	public class Solution {
 		public int calculate(String s) {
@@ -28,10 +27,12 @@ public class BasicCalculator2 {
 			int num = 0;
 			char sign = '+';
 			for (int i = 0; i < len; i++) {
-				if (Character.isDigit(s.charAt(i))) {
-					num = num * 10 + s.charAt(i) - '0';
+				char ch = s.charAt(i);
+				// For the case of multiple digit numbers
+				if (Character.isDigit(ch)) {
+					num = num * 10 + ch - '0';
 				}
-				if ((!Character.isDigit(s.charAt(i)) && ' ' != s.charAt(i)) || i == len - 1) {
+				if ((!Character.isDigit(ch) && ' ' != ch) || i == len - 1) {
 					if (sign == '-') {
 						stack.push(-num);
 					}
@@ -44,16 +45,16 @@ public class BasicCalculator2 {
 					if (sign == '/') {
 						stack.push(stack.pop() / num);
 					}
-					sign = s.charAt(i);
-					num = 0;
+					sign = ch;
+					num = 0; // Reset num to zero
 				}
 			}
 
-			int re = 0;
+			int res = 0;
 			for (int i : stack) {
-				re += i;
+				res += i; // Only positive and negative numbers will be left in the stack now
 			}
-			return re;
+			return res;
 		}
 	}
 }
