@@ -34,9 +34,11 @@ public class WiggleSubsequence {
 			return 0;
 
 		int len = nums.length;
-		int[] up = new int[nums.length];
-		int[] down = new int[nums.length];
-		up[0] = 1;  down[0] = 1;
+		int up = 1, down = 1;
+		
+//		int[] up = new int[nums.length];
+//		int[] down = new int[nums.length];
+//		up[0] = 1;  down[0] = 1;
         
         // // O(N^2) time solution
         // for(int i=1; i < nums.length; i++) {
@@ -48,14 +50,21 @@ public class WiggleSubsequence {
         //     }
         // }
         
-		// O(N) time solution
-		for (int i = 1; i < nums.length; i++) {
-			if (nums[i] > nums[i - 1])
-				up[i] = Math.max(up[i], down[i - 1] + 1);
-			else if (nums[i] < nums[i - 1])
-				down[i] = Math.max(down[i], up[i - 1] + 1);
+//		// O(N) time solution, O(N) space
+//		for (int i = 1; i < nums.length; i++) {
+//			if (nums[i] > nums[i - 1])
+//				up[i] = Math.max(up[i], down[i - 1] + 1);
+//			else if (nums[i] < nums[i - 1])
+//				down[i] = Math.max(down[i], up[i - 1] + 1);
+//		}
+		
+		for(int i=1; i < nums.length; i++) {
+			if(nums[i] > nums[i-1])
+				up = Math.max(up, down+1);
+			else if(nums[i] < nums[i-1])
+				down = Math.max(down, up+1);
 		}
 
-		return Math.max(up[len-1], down[len-1]);
+		return Math.max(up, down);
     }
 }
