@@ -31,8 +31,14 @@ How does it change the problem?
 What limitation we need to add to the question to allow negative numbers?
  */
 
-// Inspired from
+
 public class CombinationSumIV {
+	// Answers for followup quesitons:
+	// If negative numbers are allowed, there is high possibility that the
+	// computation goes into infinite loop. As long as we choose n 1s and (n-1) -1s,
+	// it always sums up to 1, n can be any value >= 1.
+	// To avoid this, we need to add a condition that each number should be used
+	// only once. This avoids infinite loop
 	public int combinationSum4(int[] candidates, int target) {
 		int[] memo = new int[target + 1];
 		memo[0] = 1;
