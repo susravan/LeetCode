@@ -1,11 +1,9 @@
 package LeetCodeMediumQuestions;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
 
 /**
  * @author Sravan
@@ -50,8 +48,9 @@ Explanation:
 Note that 'A' and 'a' are treated as two different characters.
  */
 
-// Inspired from 
 public class SortCharByFrequency {
+	// Approach: Bucket sort - buckets of list of characters stored at the index of
+	// their frequency
 	public String frequencySort(String s) {
 		if (s.equals("") || s.length() == 1)
 			return s;
