@@ -1,5 +1,7 @@
 package LeetCodeMediumQuestions;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -23,52 +25,31 @@ import java.util.List;
  * 
  */
 
-// Inspired from
 public class ZigzagIterator {
-	int listIndex, eleIndex;
-	Integer num;
-	List<List<Integer>> list;
+	private List<Iterator> iterList;
+	private int index, nextNum;
 
 	public ZigzagIterator(List<List<Integer>> list) {
-		this.list = list;
-		listIndex = eleIndex = 0;
-		if (list.get(listIndex).size() > 0)
-			num = list.get(listIndex).get(eleIndex);
-		else
-			num = null;
+		iterList = new LinkedList<>();
+		for (List<Integer> temp : list)
+			iterList.add(temp.iterator());
 	}
 
 	public int next() {
-		if (num == null)
+		if (!hasNext())
 			throw new NullPointerException();
 
-		int res = num;
-		listIndex++;
-
-		// If the eleIndex is greater than curr list size, go to next list
-		while (listIndex < list.size() && eleIndex >= list.get(listIndex).size())
-			listIndex++;
-
-		// Go back to first list when end of list is reached
-		if (listIndex == list.size()) {
-			listIndex = 0;
-			eleIndex++;
-
-			// When eleIndex reaches the maximum size of sublist, update num to null
-			while (listIndex < list.size() && eleIndex >= list.get(listIndex).size()) {
-				listIndex++;
-			}
-		}
-
-		if (listIndex == list.size())
-			num = null;
-		else
-			num = list.get(listIndex).get(eleIndex);
-
-		return res;
+		return (int) iterList.get(index++).next();
 	}
 
 	public boolean hasNext() {
-		return num != null;
+		if (index >= iterList.size())
+			index = 0;
+		while (iterList.size() != 0 && !iterList.get(index).hasNext()) {
+			iterList.remove(index);
+			if (index >= iterList.size())
+				index = 0;
+		}
+		return iterList.size() != 0;
 	}
 }
