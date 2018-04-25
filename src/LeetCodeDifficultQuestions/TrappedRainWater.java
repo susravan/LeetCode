@@ -21,7 +21,7 @@ public class TrappedRainWater {
 		int left = 0, right = height.length-1;
 		
 		// Maintain 2 pointers and move them whichever is lesser
-		while(left <= right) {
+		while(left < right) {
 			if(height[left] < height[right]) {
 				maxLeft = Math.max(maxLeft, height[left]);
 				maxWater += maxLeft - height[left];
