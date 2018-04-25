@@ -16,43 +16,25 @@ import java.util.Stack;
  */
 
 public class TrappedRainWater {
-
 	public int getTrappedRainWater(int[] height) {
-		if (height.length < 3)
-			return 0;
-
-		Stack<Integer> st = new Stack<>();
-
-		int index = 0;
-		int[] leftGreaterHeight = new int[height.length];
-
-		// Store largest element to the left
-		while (index < height.length) {
-			if (st.isEmpty() || st.peek() <= height[index]) {
-				leftGreaterHeight[index] = 0;
-				st.push(height[index]);
-			} else
-				leftGreaterHeight[index] = st.peek();
-			index++;
+		int maxWater = 0, maxLeft = 0, maxRight = 0;
+		int left = 0, right = height.length-1;
+		
+		// Maintain 2 pointers and move them whichever is lesser
+		while(left <= right) {
+			if(height[left] < height[right]) {
+				maxLeft = Math.max(maxLeft, height[left]);
+				maxWater += maxLeft - height[left];
+				left++;
+			}
+			else {
+				maxRight = Math.max(maxRight, height[right]);
+				maxWater += maxRight - height[right];
+				right--;
+			}
 		}
-
-		st.clear();
-		int trappedWater = 0;
-		int maxHeightRight = 0;
-		index = height.length - 1;
-		// Calculate largest element to the right on the fly along with calculating the
-		// trapped rain water
-		while (index >= 0) {
-			if (st.isEmpty() || st.peek() <= height[index]) {
-				maxHeightRight = 0;
-				st.push(height[index]);
-			} else
-				maxHeightRight = st.peek();
-
-			trappedWater += Math.max(Math.min(leftGreaterHeight[index], maxHeightRight) - height[index], 0);
-			index--;
-		}
-		return trappedWater;
+		
+		return maxWater;
 	}
 
 }
