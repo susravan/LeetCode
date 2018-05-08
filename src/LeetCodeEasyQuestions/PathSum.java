@@ -23,20 +23,13 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
 public class PathSum {
 	// Recursive approach
 	public boolean hasPathSum(TreeNode root, int sum) {
-		if (root == null)
-			return false;
-
-		return pathSumHelper(root, sum);
+		return helper(root, sum);
 	}
 
-	private boolean pathSumHelper(TreeNode root, int sum) {
-		if (root == null)
-			return false;
-		
-		// If leaf node and exactly equals to sum
-		if (root.left == null && root.right == null && root.val == sum)
-			return true;
+	private boolean helper(TreeNode root, int sum) {
+		if(root == null)
+			return sum == 0;
 
-		return pathSumHelper(root.left, sum - root.val) || pathSumHelper(root.right, sum - root.val);
+		return helper(root.left, sum - root.val) || helper(root.right, sum - root.val);
 	}
 }
